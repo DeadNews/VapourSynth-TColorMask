@@ -122,7 +122,7 @@ void processSse2(uint8_t *pDstY, const uint8_t *pSrcY, const uint8_t *pSrcV, con
     }
 }
 
-int avisynthStringToInt(const std::string &str) {
+int stringToInt(const std::string &str) {
     if (str[0] == '$') {
         auto substr = str.substr(1, str.length());
         return strtol(substr.c_str(), 0, 16);
@@ -168,7 +168,7 @@ static void VS_CC TCMInit(VSMap *in, VSMap *out, void **instanceData, VSNode *no
     vsapi->setVideoInfo(&d->vi, 1, node);
 }
 
-static const VSFrameRef *VS_CC TÑMGetFrame(int n, int activationReason, void **instanceData, void **frameData, VSFrameContext *frameCtx, VSCore *core, const VSAPI *vsapi) {
+static const VSFrameRef *VS_CC TCMGetFrame(int n, int activationReason, void **instanceData, void **frameData, VSFrameContext *frameCtx, VSCore *core, const VSAPI *vsapi) {
     TCMData * d = static_cast<TCMData *>(*instanceData);
 
     if (activationReason == arInitial) {
@@ -195,7 +195,7 @@ static const VSFrameRef *VS_CC TÑMGetFrame(int n, int activationReason, void **i
     return nullptr;
 }
 
-static void VS_CC TÑMFree(void *instanceData, VSCore *core, const VSAPI *vsapi) {
+static void VS_CC TCMFree(void *instanceData, VSCore *core, const VSAPI *vsapi) {
     TCMData * d = static_cast<TCMData *>(instanceData);
 
     vsapi->freeNode(d->node);
@@ -217,7 +217,7 @@ void VS_CC TCMCreate(const VSMap *in, VSMap *out, void *userData, VSCore *core, 
         std::vector<int> colors;
         int colorsCount = vsapi->propNumElements(in, "colors");
         for (int i = 0; i < colorsCount; i++) {
-            colors.push_back(avisynthStringToInt(vsapi->propGetData(in, "colors", i, &err)));
+            colors.push_back(stringToInt(vsapi->propGetData(in, "colors", i, &err)));
         }
 
         d->tolerance = static_cast<int>(vsapi->propGetInt(in, "tolerance", 0, &err));
@@ -302,7 +302,7 @@ void VS_CC TCMCreate(const VSMap *in, VSMap *out, void *userData, VSCore *core, 
         vsapi->freeNode(d->node);
         return;
     }
-    vsapi->createFilter(in, out, "TColorMask", TCMInit, TÑMGetFrame, TÑMFree, fmParallel, 0, d.release(), core);
+    vsapi->createFilter(in, out, "TColorMask", TCMInit, TCMGetFrame, TCMFree, fmParallel, 0, d.release(), core);
 }
 
 VS_EXTERNAL_API(void) VapourSynthPluginInit(VSConfigPlugin configFunc, VSRegisterFunction registerFunc, VSPlugin *plugin) {
