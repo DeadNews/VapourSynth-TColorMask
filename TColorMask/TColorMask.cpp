@@ -2,8 +2,8 @@
 #include <vector>
 #include <memory>
 #include <emmintrin.h>
-#include <VapourSynth.h>
-#include <VSHelper.h>
+#include "VapourSynth.h"
+#include "VSHelper.h"
 
 struct YUVPixel {
     uint8_t Y;
