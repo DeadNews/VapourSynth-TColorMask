@@ -1,4 +1,4 @@
-## TColorMask ##
+# TColorMask ##
 
 VapourSynth port of tp7's Avisynth plugin. Great solution if you need to build some masks on color values.
 Only 8 bit clips are allowed at this time.
@@ -18,3 +18,13 @@ core.tcm.TColorMask(clip, ['$FFFFFF', '$000000', '$808080'], tolerance=10, bt601
 This project is licensed under the [MIT license][mit_license].
 
 [mit_license]: http://opensource.org/licenses/MIT
+
+
+
+### Compilation ###
+
+```
+mkdir -p build && cd build
+cmake ../
+cmake --build .
+```
