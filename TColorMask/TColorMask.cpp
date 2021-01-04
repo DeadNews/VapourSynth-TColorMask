@@ -4,6 +4,7 @@
 #include <emmintrin.h>
 #include <VapourSynth.h>
 #include <VSHelper.h>
+#include <string>
 
 struct YUVPixel {
     uint8_t Y;
@@ -250,7 +251,7 @@ void VS_CC TCMCreate(const VSMap *in, VSMap *out, void *userData, VSCore *core, 
             d->lutFunction = processLut<1, 1>;
             d->sse2Function = processSse2<1, 1>;
         }
-        
+
         float kR = d->bt601 ? 0.299f : 0.2126f;
         float kB = d->bt601 ? 0.114f : 0.0722f;
 
