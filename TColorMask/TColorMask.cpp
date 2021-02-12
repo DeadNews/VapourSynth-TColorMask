@@ -4,6 +4,7 @@
 #include <emmintrin.h>
 #include "VapourSynth.h"
 #include "VSHelper.h"
+#include <string>
 
 struct YUVPixel {
     uint8_t Y;
